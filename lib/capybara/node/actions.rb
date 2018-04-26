@@ -174,8 +174,30 @@ module Capybara
       #
       # @return [Capybara::Node::Element]  The option element selected
       def select(value = nil, from: nil, **options)
-        scope = from ? find(:select, from, options) : self
-        scope.find(:option, value, options).select_option
+        scope = if from
+          synchronize(Capybara::Queries::BaseQuery.wait(options, session_options.default_max_wait_time)) do
+            begin
+              find(:select, from, options)
+            rescue Capybara::ElementNotFound => select_error
+              raise if %i[selected with_selected multiple].any? { |option| options.key?(option) }
+              begin
+                find(:datalist_input, from, options)
+              rescue Capybara::ElementNotFound => dlinput_error
+                raise Capybara::ElementNotFound, "#{select_error.message} and #{dlinput_error.message}"
+              end
+            end
+          end
+        else
+          self
+        end
+        # scope = from ? find(:select, from, options) : self
+        if scope.respond_to?(:tag_name) && scope.tag_name == "input"
+          datalist = find(:xpath, XPath.descendant(:datalist)[XPath.attr(:id) == scope[:list]], visible: false)
+          option = datalist.find(:datalist_option, value)
+          scope.set(option.value)
+        else
+          scope.find(:option, value, options).select_option
+        end
       end
 
       ##
