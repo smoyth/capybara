@@ -1,3 +1,6 @@
+require:
+  - rubocop-rspec
+
 AllCops:
   DisabledByDefault: false
   TargetRubyVersion: 2.2.2
@@ -141,3 +144,54 @@ Security/YAMLLoad:
   Exclude:
     - 'lib/capybara/spec/**/*'
     - 'spec/**/*'
+
+RSpec/ExampleWording:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/MultipleDescribes:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/ExpectActual:
+  Enabled: false
+
+RSpec/HookArgument:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/PredicateMatcher:
+  Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false

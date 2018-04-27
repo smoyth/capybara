@@ -68,7 +68,7 @@ Capybara::SpecHelper.spec '#become_closed', requires: %i[windows js] do
       Capybara.using_wait_time 0.3 do
         expect do
           expect(@other_window).not_to become_closed
-        end
+        end.not_to raise_error
       end
     end
 

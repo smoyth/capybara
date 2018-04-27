@@ -98,7 +98,7 @@ Capybara::SpecHelper.spec "node" do
       expect { @session.first('//input[@readonly]').set('changed') }.to raise_error(Capybara::ReadOnlyElementError)
     end
 
-    it "should raise if the text field is readonly" do
+    it "should raise if the textarea is readonly" do
       expect { @session.first('//textarea[@readonly]').set('changed') }.to raise_error(Capybara::ReadOnlyElementError)
     end
 
@@ -372,7 +372,7 @@ Capybara::SpecHelper.spec "node" do
     it "should double click an element" do
       @session.visit('/with_js')
       @session.find(:css, '#click-test').double_click
-      expect(@session.find(:css, '#has-been-double-clicked')).to be
+      expect(@session.find(:css, '#has-been-double-clicked')).to be_truthy
     end
 
     it "should allow modifiers", requires: [:js] do
@@ -397,7 +397,7 @@ Capybara::SpecHelper.spec "node" do
     it "should right click an element" do
       @session.visit('/with_js')
       @session.find(:css, '#click-test').right_click
-      expect(@session.find(:css, '#has-been-right-clicked')).to be
+      expect(@session.find(:css, '#has-been-right-clicked')).to be_truthy
     end
 
     it "should allow modifiers", requires: [:js] do
